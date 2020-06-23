@@ -1,0 +1,172 @@
+{% extends 'faculty/base.html' %}
+{% load static %}
+{% block body %}
+<style type="text/css">
+	.dashboard_main_content .main_content_container {
+		padding: 99px 0 0;
+	}
+
+	.faq_question_widget {
+		min-height: 83vh;
+	}
+</style>
+<div class="dashboard_main_content">
+	<div class="container-fluid">
+		<div class="main_content_container">
+			<div class="row">
+				<div class="col-lg-12">
+					<nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
+						<h4 class="title float-left">Exam Result </h4>
+					
+					</nav>
+				</div>
+				<div class="col-lg-12">
+					<div class="cart_page_form style2">
+						<form action="examresult" method="POST">
+							{% csrf_token %}
+							<table class="table table-responsive">
+								<thead>
+									<tr class="carttable_row">
+
+										<th class="cartm_title">Select Course</th>
+									</tr>
+								</thead>
+								<tbody class="table_body">
+									<tr>
+										<td>
+											<label for="">Courses</label>
+											<select class="form-control" name="courses">
+												<option value=""> Select Course</option>
+												{% for i in courses %}
+												<option value="{{i.Cid}}">{{i.Course_name}}</option>
+												{% endfor %}
+											</select>
+										</td>
+										<br>
+										<td>
+											<label for="">Department</label>
+											<select class="form-control" name="department">
+
+												{% for i in courses %}
+												{% ifchanged d.FacultyAttendenceYear %}
+												<option value="{{i.Department_id}}">{{i.Department_id}}</option>
+												{% endifchanged %}
+												{% endfor %}
+											</select>
+										</td>
+									</tr>
+
+								</tbody>
+							</table>
+							<input type="submit" class="btn btn-primary" value="Search" name="" required>
+					</div>
+				</div>
+
+
+				</form>
+
+
+				{% for data in data %}
+
+				<form action="resultentry" method="post">
+					{% csrf_token %}
+					<input type="hidden" name="sid" value='{{data.Student_ID.StudentId}}'>
+
+					<input type="hidden" name="depart" value='{{department}}'>
+
+
+					<input type="hidden" name="course" value='{{course}}'>
+					<div class="col-lg-12">
+						<div class="my_setting_content_details">
+							<div class="cart_page_form style3">
+
+								<table class="table table-responsive">
+									<thead>
+										<tr class="carttable_row">
+											<th class="cartm_title">Course Weightage</th>
+										</tr>
+										<tr class="">
+											<th class="cartm_title">Student Name</th>
+											<th class="cartm_title">Project</th>
+											<th class="cartm_title">Quiz/Assignment</th>
+											<th class="cartm_title">Midterm</th>
+											<th class="cartm_title">Final</th>
+											<th class="cartm_title">Total</th>
+											<th class="cartm_title"></th>
+										</tr>
+									</thead>
+									<tbody class="table_body">
+
+										<tr>
+											<th scope="row">
+												<ul class="cart_list">
+													<li class="list-inline-item"><a class="cart_title"
+															href="#">{{data.Student_ID }}</a></li>
+												</ul>
+											</th>
+											<td>
+												<input style="width: 63px;" class="form-control" type="text"
+													name="project" required>
+											</td>
+											<td>
+												<input style="width: 125px;" class="form-control" type="" name="q/a"
+													required>
+											</td>
+											<td>
+												<input style="width: 63px;" class="form-control" type="" name="midterm"
+													required>
+											</td>
+											<td>
+												<input style="width: 63px;" class="form-control" type="" name="final"
+													required>
+											</td>
+											<td>
+												<input style="width: 63px;" class="form-control" type="" name="total"
+													required>
+
+											</td>
+											<td colspan="4">
+
+
+
+
+												<input type="submit" class="btn btn-primary" value="submit" name="">
+
+
+
+
+											</td>
+
+										</tr>
+
+
+				</form>
+				</tbody>
+				<tfoot>
+					<tr>
+
+					</tr>
+				</tfoot>
+				</table>
+
+			</div>
+		</div>
+	</div>
+
+	{% endfor %}
+</div>
+</div>
+</div>
+</div>
+
+<script>
+	{% if thank %}
+	
+	alert('{{msg}}')
+	
+	{% endif %}
+	
+	
+	</script>
+{% endblock  %}
+
